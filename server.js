@@ -44,7 +44,7 @@ app.post('/create-video', async (req, res) => {
 
     console.log('Creating video...');
 
-    // Create high-quality video
+    // Create high-quality video - optimized for speed
     await new Promise((resolve, reject) => {
       ffmpeg()
         .input('/tmp/input.png')
@@ -52,15 +52,15 @@ app.post('/create-video', async (req, res) => {
         .input('/tmp/input.mp3')
         .outputOptions([
           '-c:v', 'libx264',
-          '-preset', 'slow',
-          '-crf', '17',
+          '-preset', 'faster',
+          '-crf', '20',
           '-profile:v', 'high',
           '-level', '4.2',
           '-pix_fmt', 'yuv420p',
-          '-vf', 'scale=2160:3840',
+          '-vf', 'scale=1080:1920',
           '-r', '30',
           '-c:a', 'aac',
-          '-b:a', '320k',
+          '-b:a', '256k',
           '-ar', '48000',
           '-t', String(duration),
           '-shortest',
